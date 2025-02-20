@@ -1,4 +1,4 @@
-# <img height="50" src="app-icon.png" style="vertical-align: -12px;"> Scratchpad
+# Scratchpad
 
 ![Screenshot of Scratchpad running on iPhone and Mac](screenshot.png)
 
