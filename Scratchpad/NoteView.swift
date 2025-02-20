@@ -10,10 +10,12 @@ import SwiftData
 
 struct NoteView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.scenePhase) private var scenePhase
     @StateObject private var viewModel: NoteViewModel
     // use query vs. viewModel @published so note models are automatically updated
     // important first note model when sorted by timestamp is the one used
     @Query(sort: \NoteModel.timestamp) private var noteModels: [NoteModel]
+    @FocusState private var isTextEditorFocused: Bool
     
     init(modelContext: ModelContext) {
         _viewModel = StateObject(wrappedValue: NoteViewModel(modelContext: modelContext))
@@ -33,6 +35,15 @@ struct NoteView: View {
                             }
                         )
                     )
+                    .focused($isTextEditorFocused)
+                    .onAppear { 
+                        isTextEditorFocused = true
+                    }
+                    .onChange(of: scenePhase) { oldPhase, newPhase in
+                        if newPhase == .active {
+                            isTextEditorFocused = true
+                        }
+                    }
                     .font(.system(.body, design: .monospaced))
                 }
                 else {
