@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Scratchpad</title>
+        <meta name="description" content="A plain text scratchpad for your notes, stored in local storage. No signup, no ads, offline compatible.">
+        <meta charset="UTF-8">
+        <!-- prevent zooming on mobile -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <meta property="og:title" content="Scratchpad">
+        <meta property="og:description" content="A plain text scratchpad for your notes, stored in local storage. No signup, no ads, offline compatible.">
+        <meta property="og:url" content="https://scratchp.ad">
+
+        <meta name="twitter:title" content="Scratchpad">
+        <meta name="twitter:description" content="A plain text scratchpad for your notes, stored in local storage. No signup, no ads, offline compatible.">
+        <meta name="twitter:card" content="summary_large_image">
+
+        <style>
+            body, html {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                background-color: #fff;
+            }
+            textarea {
+                flex: 1;
+                width: 100%;
+                height: 100%;
+                box-sizing: border-box;
+                border: none;
+                resize: none;
+                padding: 1em;
+                font-family: monospace;
+                font-size: 14px;
+                line-height: 1.5;
+                background: #fff;
+                color: #000000;
+                caret-color: #3D7AFF;
+            }
+            textarea:focus {
+                outline: none;
+            }
+            .footer-text {
+                padding: 16px;
+                color: rgba(0, 0, 0, 0.25);
+                border-top: 1px solid #eaecef;
+                font-family: monospace;
+                font-size: 14px;
+                background: #fff;
+            }
+            .footer-text a {
+                color: rgba(0, 0, 0, 0.25);
+                text-decoration: none;
+            }
+            .footer-text a:hover {
+                color: #3D7AFF;
+                opacity: 1.0;
+            }
+            @media (prefers-color-scheme: dark) {
+                body, html {
+                    background-color: #0f0f0f;
+                }
+                textarea {
+                    background: #0f0f0f;
+                    color: #fff;
+                }
+                .footer-text {
+                    color: rgba(255, 255, 255, 0.25);
+                    border-color: #272B31;
+                    background: #0f0f0f;
+                }
+                .footer-text a {
+                    color: rgba(255, 255, 255, 0.25);
+                }
+            }
+        </style>
+    </head>
+    
+    <body>
+        <textarea id="scratchpad" autofocus></textarea>
+        <div class="footer-text" style="display: flex; justify-content: space-between;">
+            <div style="text-align: left;">
+                Scratchpad by <a href="https://crawbuck.com">Duncan Crawbuck</a>
+            </div>
+            <div style="text-align: right;">
+                <div style="display: flex; gap: 16px;">
+                    <a href="https://github.com/dcrawbuck/Scratchpad">GitHub Repo</a>
+                </div>
+            </div>
+        </div>
+        <script>
+            const scratchpad = document.getElementById('scratchpad');
+            const STORAGE_KEY = 'scratchpad-content';
+            
+            // load initial state
+            scratchpad.value = localStorage.getItem(STORAGE_KEY) || '';
+            
+            // save state on input change
+            scratchpad.addEventListener('input', () => {
+                localStorage.setItem(STORAGE_KEY, scratchpad.value);
+            });
+        </script>
+    </body>
+</html>
